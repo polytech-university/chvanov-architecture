@@ -1,0 +1,23 @@
+name: lab2-architecture
+
+services:
+  postgres-service:
+    container_name: postgres-container
+    image: postgres:17-alpine
+    ports:
+      - 5432:5432
+    
+    env_file:
+      - .env
+  backend-service:
+    container_name: backend-container
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    working_dir: /backend
+    ports:
+      - 8000:8000
+
+    command: "python3.11 manage.py runserver"
+    depends_on:
+      - postgres-service

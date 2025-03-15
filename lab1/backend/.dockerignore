@@ -1,0 +1,12 @@
+**/env
+**/venv
+**/__pycache__
+# **/migrations
+.vscode/
+staticfiles/
+
+**/* рус
+Dockerfile*
+*.sqlite3
+*.http
+*.рус

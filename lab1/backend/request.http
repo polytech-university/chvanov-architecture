@@ -1,0 +1,46 @@
+@hostname = http://127.0.0.1:8000
+@content_type = application/json
+@model_id = 1006
+
+
+
+
+### запрос на Create (C)RUD
+POST {{hostname}}/llm
+Content-Type: {{content_type}}
+
+{
+    "model_name": "Orion",
+    "opensource": true,
+    "reasoning": true,
+    "param_number_billions": 10000,
+    "context_window": 128000,
+    "ndow": null,
+    "cost": 9.2,
+    "MMLU": 87,
+    "TruthfulQA": 90,
+    "Perplexity": 89
+}
+
+
+
+### запрос на Retrieve C(R)UD
+GET {{hostname}}/llm/{{model_id}}
+Content-Type: {{content_type}}
+
+
+
+### запрос на Update CR(U)D
+PATCH {{hostname}}/llm/{{model_id}}
+Content-Type: {{content_type}}
+
+{
+    "model_name": "Orion 1"
+    // "context_window": 150000,
+    // "cost": 7.3
+}
+
+
+
+### запрос на Update CRU(D)
+DELETE {{hostname}}/llm/{{model_id}}

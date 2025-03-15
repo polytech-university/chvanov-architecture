@@ -1,0 +1,7 @@
+djangorestframework
+django-cors-headers
+django-filter
+psycopg[binary,pool]
+markdown
+faker
+gunicorn
