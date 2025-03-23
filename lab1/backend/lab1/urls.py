@@ -14,8 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+
 
 from rest_framework import routers
 from mainapp.views import large_language_model_ViewSet
@@ -23,15 +26,16 @@ from mainapp.views import large_language_model_ViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('llm', large_language_model_ViewSet.as_view({
+    path('api/llm', large_language_model_ViewSet.as_view({
         'get': 'list',
         'post': 'create'
     })),  
-    path('llm/<pk>', large_language_model_ViewSet.as_view({
+    path('api/llm/<pk>', large_language_model_ViewSet.as_view({
         'get': 'retrieve',
         'patch': 'partial_update',
         'delete': 'destroy'
-    })),    
-    # path('llm', large_language_model_ViewSet.as_view({'post': 'create'})),  
+    }))
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

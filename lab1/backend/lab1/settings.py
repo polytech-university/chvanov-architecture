@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-fixqx3_^4kkyp-z1^0*7n+bs^e9((%zohi6ts+yo)qw#x!708d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -82,8 +82,8 @@ DATABASES = {
         'NAME': 'lab1_db', # название базы данных
         'USER': 'django',  # внутренний пользователь БД, нужно создать вручную или отдельным скриптом
         'PASSWORD': '1234567890', # пароль этого пользователя
-        # 'HOST': 'postgres-service',
-        'HOST': 'localhost',
+        'HOST': 'postgres-service',
+        # 'HOST': 'localhost',
         'PORT': 5432,
     }
 }
@@ -124,6 +124,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = '/staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

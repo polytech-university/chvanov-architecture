@@ -1,23 +1,71 @@
 name: lab2-architecture
 
+
+
 services:
-  postgres-service:
-    container_name: postgres-container
-    image: postgres:17-alpine
+  nginx-service: 
+    container_name: nginx-container
+    restart: unless-stopped
+    image: nginx-image
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
     ports:
-      - 5432:5432
-    
-    env_file:
-      - .env
+      - 80:80
+      - 443:443
+    volumes:
+      - staticfiles-volume:/static
+    depends_on:
+      backend-service:
+        condition: service_started
+
   backend-service:
+    image: backend-image
     container_name: backend-container
+    # ports:
+    #   - 8000:8000
+    restart: unless-stopped
+    working_dir: /backend
+    command: >
+      sh -c "
+      gunicorn lab1.wsgi:application --bind 0.0.0.0:8000
+      "
+    volumes:
+      - staticfiles-volume:/staticfiles
+    depends_on:
+      postgres-service:
+        condition: service_started
+      backend-provision-service:
+        condition: service_completed_successfully
+
+  backend-provision-service:
     build:
       context: ./backend
       dockerfile: Dockerfile
+    image: backend-image
+    container_name: backend-provision-container
+    restart: no
     working_dir: /backend
-    ports:
-      - 8000:8000
-
-    command: "python3.11 manage.py runserver"
+    command: >
+      sh -c "
+      python manage.py migrate --noinput &&
+      python manage.py collectstatic --noinput
+      "
+    volumes:
+      - staticfiles-volume:/staticfiles
     depends_on:
-      - postgres-service
+      postgres-service:
+        condition: service_started
+
+  postgres-service:
+    container_name: postgres-container
+    image: postgres:17-alpine
+    restart: always
+    ports:
+      - 5433:5432
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_DB=lab1_db
+volumes:
+  staticfiles-volume:
