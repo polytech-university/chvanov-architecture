@@ -29,7 +29,7 @@ urlpatterns = [
     path('api/llm', large_language_model_ViewSet.as_view({
         'get': 'list',
         'post': 'create'
-    })),  
+    })),
     path('api/llm/<pk>', large_language_model_ViewSet.as_view({
         'get': 'retrieve',
         'patch': 'partial_update',

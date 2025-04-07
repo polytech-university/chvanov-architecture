@@ -1,4 +1,4 @@
-@hostname = http://127.0.0.1:8000
+@hostname = http://127.0.0.1:80
 @content_type = application/json
 @model_id = 1006
 
@@ -6,7 +6,7 @@
 
 
 ### запрос на Create (C)RUD
-POST {{hostname}}/llm
+POST {{hostname}}/api/llm
 Content-Type: {{content_type}}
 
 {
@@ -25,13 +25,13 @@ Content-Type: {{content_type}}
 
 
 ### запрос на Retrieve C(R)UD
-GET {{hostname}}/llm/{{model_id}}
+GET {{hostname}}/api/llm/{{model_id}}
 Content-Type: {{content_type}}
 
 
 
 ### запрос на Update CR(U)D
-PATCH {{hostname}}/llm/{{model_id}}
+PATCH {{hostname}}/api/llm/{{model_id}}
 Content-Type: {{content_type}}
 
 {
@@ -43,4 +43,4 @@ Content-Type: {{content_type}}
 
 
 ### запрос на Update CRU(D)
-DELETE {{hostname}}/llm/{{model_id}}
+DELETE {{hostname}}/api/llm/{{model_id}}

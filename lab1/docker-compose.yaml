@@ -1,9 +1,8 @@
 name: lab2-architecture
 
 
-
 services:
-  nginx-service: 
+  nginx-service:
     container_name: nginx-container
     restart: unless-stopped
     image: nginx-image
